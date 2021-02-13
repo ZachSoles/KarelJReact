@@ -3,23 +3,34 @@ class Robot {
     y: number
     position: String
     on: Boolean
-    beeperBag: beeper[]
+    // beeperBag: beeper[]
+    beeperBag: number
 
     constructor(x: number, y: number) {
         this.x = x
         this.y = y
         this.position = "north"
         this.on = true
-        this.beeperBag = [new beeper(10, 10)]
+        this.beeperBag = 3
     }
 
-    move() { this.x += 1 }
+    move() {
+        if(this.position === "north") {
+            this.y -= 1
+        } else if (this.position === "left") {
+            this.x -= 1
+        } else if (this.position === "right") {
+            this.x += 1
+        } else {
+            this.y += 1
+        }
+    }
 
-    setX(x: number) { this.x = x }
+    // setX(x: number) { this.x = x }
 
-    setY(y: number) { this.y = y }
+    // setY(y: number) { this.y = y }
 
-    setPosition(position: String) { this.position = position }
+    // setPosition(position: String) { this.position = position }
 
     turnLeft() {
         if (this.position === "north") {
@@ -35,18 +46,34 @@ class Robot {
 
     turnOff() { this.on = false }
 
-    putBeeper() {
-        if (this.beeperBag.length > 0) {
-            this.beeperBag.push(new beeper(this.x, this.y))
+    putBeeper(beeperBag: Beeper[]) {
+        if (this.beeperBag > 0) {
+            var flag = false
+            for (var i = 0; i < beeperBag.length; i++) {
+                if (beeperBag[i].x === this.x && beeperBag[i].y === this.y) {
+                    flag = true
+                }
+            }
+            if (!flag) {
+                this.beeperBag -= 1
+                beeperBag.push(new Beeper(this.x, this.y))
+            }
         }
+        return beeperBag
     }
 
-    pickBeeper() {
-
+    pickBeeper(beeperBag: Beeper[]) {
+        for (var i = 0; i < beeperBag.length; i++) {
+            if (beeperBag[i].x === this.x && beeperBag[i].y === this.y) {
+                beeperBag.splice(i, 1)
+                this.beeperBag += 1
+            }
+        }
+        return beeperBag
     }
 }
 
-class beeper {
+class Beeper {
     x: number
     y: number
 
@@ -57,4 +84,4 @@ class beeper {
 }
 
 
-export{ Robot }
+export{ Robot, Beeper }

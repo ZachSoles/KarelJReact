@@ -1,68 +1,45 @@
 import React from 'react';
-import { Robot } from './Robot';
+import { Robot, Beeper } from './Robot';
 
 class Karel extends React.Component <any, any>{
     state = {
-        karel : new Robot(20,20),
-        beepers: [{x: 15, y: 15}],
+        karel : new Robot(20, 20),
+        beeperBag: [new Beeper(15, 15)],
         height : 30,
-        score: 0,
         width : 30,
-        grid: [],
-        // food: {x : 10, y: 10},
-        gameOver: false
     }
 
     move = () => {
         var newKarel = this.state.karel
-        var newX = this.state.karel.x
-        var newY = this.state.karel.y
-        console.log(this.state.karel.position)
-        if(this.state.karel.position === "north") {
-            newY -= 1
-        } else if (this.state.karel.position === "left") {
-            newX -= 1
-        } else if (this.state.karel.position === "right") {
-            newX += 1
-        } else {
-            newY += 1
-        }
-        newKarel.setX(newX)
-        newKarel.setY(newY)
-        this.setState({karel: newKarel})
+        newKarel.move()
+        this.setState({newKarel})
     }
 
     turnLeft = () => {
         var newKarel = this.state.karel
         newKarel.turnLeft()
-        this.setState({karel: newKarel})
+        this.setState({newKarel})
     }
 
-    // putBeeper = () => {
-    //     var beepers = this.state.beepers
-    //     var isBeeper = false
-    //     for(var idx = 0; idx < beepers.length; idx++) {
-    //         if(beepers[idx].x === this.state.karel.x && beepers[idx].y === this.state.karel.y) {
-    //             isBeeper = true
-    //         }
-    //     }
-    //     if(!isBeeper) {
-    //         beepers.push({x: this.state.karel.x, y: this.state.karel.y})
-    //         this.setState({beepers: beepers})
-    //     }
-    // }
+    putBeeper = () => {
+        var newKarel = this.state.karel
+        var newBeeperBag = newKarel.putBeeper(this.state.beeperBag)
+        this.setState({newKarel, newBeeperBag})
+    }
 
-    // pickBeeper = () => {
-    //     var beepers = this.state.beepers
-    //     for(var idx = 0; idx < beepers.length; idx++) {
-    //         if(beepers[idx].x === this.state.karel.x && beepers[idx].y === this.state.karel.y) {
-    //             beepers.splice(idx, 1)
-    //         }
-    //     }
-    //     this.setState({beepers: beepers})
-    // }
+    pickBeeper = () => {
+        var newKarel = this.state.karel
+        var newBeeperBag = newKarel.pickBeeper(this.state.beeperBag)
+        this.setState({newKarel, newBeeperBag})
+    }
 
-    drawGrid(){
+    turnOff = () => {
+        var newKarel = this.state.karel
+        newKarel.turnOff()
+        this.setState({newKarel})
+    }
+
+    drawGrid() {
         var grid = []
         for (var y = 0; y < this.state.height; y++) {
             for (var x = 0; x < this.state.width; x++) {
@@ -71,8 +48,8 @@ class Karel extends React.Component <any, any>{
                     grid.push("🥩")
                     continue
                 }
-                for (var i = 0; i < this.state.karel.beeperBag.length; i++){
-                    if (y === this.state.karel.beeperBag[i].y && x === this.state.karel.beeperBag[i].x) {
+                for (var i = 0; i < this.state.beeperBag.length; i++){
+                    if (y === this.state.beeperBag[i].y && x === this.state.beeperBag[i].x) {
                         grid.push("⚫️")
                         flag = false
                     }
@@ -84,27 +61,17 @@ class Karel extends React.Component <any, any>{
         return grid
     }
 
-    turnOff = () => {
-        var newKarel = this.state.karel
-        newKarel.turnOff()
-        this.setState({karel: newKarel})
-    }
-
     render() {
         return (
             <div>
                 <h1>Karel J Robot</h1>
                 <br/>
-                {/* <h1>{this.state.score}</h1> */}
                 {this.drawGrid()}
-
                 <br />
-                {/* <button onClick={this.newGame}>New Game</button> */}
                 <button onClick={() => this.turnLeft()}>Turn Left</button>
                 <button onClick={() => this.move()}>Move</button>
-                {/* <button onClick={() => this.move("down")}>🔽</button>
-                <button onClick={() => this.move("right")}>▶️</button> */}
-                {/* <button onClick={this.gameOver}>End Game</button> */}
+                <button onClick={() => this.putBeeper()}>Put Beeper</button>
+                <button onClick={() => this.pickBeeper()}>Pick Beeper</button>
                 <br />
                 <br />
             </div>
