@@ -1,7 +1,7 @@
 class Robot {
     x: number
     y: number
-    position: String
+    position: Direction
     on: Boolean
     // beeperBag: beeper[]
     beeperBag: number
@@ -9,20 +9,46 @@ class Robot {
     constructor(x: number, y: number, beeperBag: number) {
         this.x = x
         this.y = y
-        this.position = "north"
+        this.position = Direction.north
         this.on = true
         this.beeperBag = beeperBag
     }
 
-    move() {
-        if(this.position === "north") {
-            this.y -= 1
-        } else if (this.position === "left") {
-            this.x -= 1
-        } else if (this.position === "right") {
-            this.x += 1
-        } else {
-            this.y += 1
+    private wallInWay(walls: Wall[]) {
+        var wallInWay = false
+        for (var i = 0; i < walls.length; i++) {
+            if(this.position === Direction.north) {
+                if(this.y - 1 === walls[i].y && this.x == walls[i].x) {
+                    wallInWay = true
+                }
+            } else if(this.position === Direction.west) {
+                if(this.x - 1 === walls[i].x  && this.y == walls[i].y) {
+                    wallInWay = true
+                }
+            } else if(this.position === Direction.east) {
+                if(this.x + 1 === walls[i].x  && this.y == walls[i].y) {
+                    wallInWay = true
+                }
+            } else {
+                if(this.y + 1 === walls[i].y  && this.x == walls[i].x) {
+                    wallInWay = true
+                }
+            }
+        }
+        return wallInWay
+    }
+
+    move(walls: Wall[]) {
+        if (!this.wallInWay(walls)) {
+            if(this.position === Direction.north) {
+                this.y -= 1
+            } else if (this.position === Direction.west) {
+                this.x -= 1
+            } else if (this.position === Direction.east) {
+                this.x += 1
+            } else {
+                this.y += 1
+            }
         }
     }
 
@@ -33,14 +59,14 @@ class Robot {
     // setPosition(position: String) { this.position = position }
 
     turnLeft() {
-        if (this.position === "north") {
-            this.position = "left"
-        } else if (this.position === "left") {
-            this.position = "south"
-        } else if (this.position === "south") {
-            this.position = "right"
+        if (this.position === Direction.north) {
+            this.position = Direction.west
+        } else if (this.position === Direction.west) {
+            this.position = Direction.south
+        } else if (this.position === Direction.south) {
+            this.position = Direction.east
         } else {
-            this.position = "north"
+            this.position = Direction.north
         }
     }
 
@@ -71,6 +97,13 @@ class Robot {
         }
         return beeperBag
     }
+}
+
+enum Direction {
+    north = "north",
+    west = "west",
+    east = "east",
+    south = "south"
 }
 
 class Beeper {

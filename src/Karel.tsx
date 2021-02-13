@@ -3,16 +3,16 @@ import { Robot, Beeper, Wall } from './Robot';
 
 class Karel extends React.Component <any, any>{
     state = {
-        karel : new Robot(20, 20, 3),
+        karel : new Robot(5, 5, 3),
         beeperBag: [new Beeper(15, 15)],
-        walls: [new Wall(5, 5)],
-        height : 30,
-        width : 30,
+        walls: [new Wall(6, 6), new Wall(6, 5), new Wall(6, 2), new Wall(6, 4), new Wall(6, 3), new Wall(5, 6)],
+        height : 20,
+        width : 20,
     }
 
     move = () => {
         var newKarel = this.state.karel
-        newKarel.move()
+        newKarel.move(this.state.walls)
         this.setState({newKarel})
     }
 
@@ -48,6 +48,12 @@ class Karel extends React.Component <any, any>{
                 if (y === this.state.karel.y && x === this.state.karel.x) {
                     grid.push("🥩")
                     continue
+                }
+                for (var i = 0; i < this.state.walls.length; i++){
+                    if (y === this.state.walls[i].y && x === this.state.walls[i].x) {
+                        grid.push("⬛️")
+                        flag = false
+                    }
                 }
                 for (var i = 0; i < this.state.beeperBag.length; i++){
                     if (y === this.state.beeperBag[i].y && x === this.state.beeperBag[i].x) {
