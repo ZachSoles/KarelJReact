@@ -1,10 +1,11 @@
 import React from 'react';
-import { Robot, Beeper } from './Robot';
+import { Robot, Beeper, Wall } from './Robot';
 
 class Karel extends React.Component <any, any>{
     state = {
-        karel : new Robot(20, 20),
+        karel : new Robot(20, 20, 3),
         beeperBag: [new Beeper(15, 15)],
+        walls: [new Wall(5, 5)],
         height : 30,
         width : 30,
     }

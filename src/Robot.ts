@@ -6,12 +6,12 @@ class Robot {
     // beeperBag: beeper[]
     beeperBag: number
 
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, beeperBag: number) {
         this.x = x
         this.y = y
         this.position = "north"
         this.on = true
-        this.beeperBag = 3
+        this.beeperBag = beeperBag
     }
 
     move() {
@@ -83,5 +83,15 @@ class Beeper {
     }
 }
 
+class Wall {
+    x: number
+    y: number
 
-export{ Robot, Beeper }
+    constructor(x: number, y: number) {
+        this.x = x
+        this.y = y
+    }
+}
+
+
+export{ Robot, Beeper, Wall }
