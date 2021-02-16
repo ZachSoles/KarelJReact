@@ -1,3 +1,5 @@
+import { Beeper } from './Beeper';
+import { Wall } from './Wall';
 class Robot {
     x: number
     y: number
@@ -99,25 +101,5 @@ enum Direction {
     south = "south"
 }
 
-class Beeper {
-    x: number
-    y: number
 
-    constructor(x: number, y: number) {
-        this.x = x
-        this.y = y
-    }
-}
-
-class Wall {
-    x: number
-    y: number
-
-    constructor(x: number, y: number) {
-        this.x = x
-        this.y = y
-    }
-}
-
-
-export{ Robot, Beeper, Wall }
+export{ Robot }

@@ -1,14 +1,10 @@
 import { Button, TextField } from '@material-ui/core';
 import React from 'react';
-import { Robot, Beeper, Wall } from '../Shared/Robot';
+import { Robot } from '../Shared/Robot';
+import { Wall } from '../Shared/Wall';
+import { Beeper } from '../Shared/Beeper';
 import './Editor.css';
-
-enum gridType {
-    karel = "🥩",
-    beeper = "⚫️",
-    wall = "⬛️",
-    empty = "⬜️"
-}
+import { gridType } from '../Shared/Types';
 
 class Editor extends React.Component <any, any>{
     state = {
@@ -18,8 +14,6 @@ class Editor extends React.Component <any, any>{
         height : 10,
         width : 10
     }
-
-
 
     handleButtonKarel = (x: number, y: number, type: gridType) => {
         console.log(x, y)

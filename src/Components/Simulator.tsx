@@ -1,5 +1,8 @@
 import React from 'react';
-import { Robot, Beeper, Wall } from './Shared/Robot';
+import { Robot } from './Shared/Robot';
+import { Wall } from './Shared/Wall';
+import { Beeper } from './Shared/Beeper';
+import { gridType } from './Shared/Types';
 
 class Simulator extends React.Component <any, any>{
     state = {
@@ -46,22 +49,22 @@ class Simulator extends React.Component <any, any>{
             for (var x = 0; x < this.state.width; x++) {
                 var flag = true
                 if (y === this.state.karel.y && x === this.state.karel.x) {
-                    grid.push("🥩")
+                    grid.push(gridType.karel)
                     continue
                 }
                 for (var i = 0; i < this.state.walls.length; i++){
                     if (y === this.state.walls[i].y && x === this.state.walls[i].x) {
-                        grid.push("⬛️")
+                        grid.push(gridType.wall)
                         flag = false
                     }
                 }
                 for (var i = 0; i < this.state.beeperBag.length; i++){
                     if (y === this.state.beeperBag[i].y && x === this.state.beeperBag[i].x) {
-                        grid.push("⚫️")
+                        grid.push(gridType.beeper)
                         flag = false
                     }
                 }
-                if (flag)  { grid.push("⬜️") }
+                if (flag)  { grid.push(gridType.empty) }
             }
             grid.push(<br/>)
         }
