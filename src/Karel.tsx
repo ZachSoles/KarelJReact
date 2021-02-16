@@ -74,13 +74,13 @@ class Karel extends React.Component <any, any>{
                 <h1>Karel J Robot</h1>
                 <br/>
                 {this.drawGrid()}
-                <br />
+                <br/>
                 <button onClick={() => this.turnLeft()}>Turn Left</button>
                 <button onClick={() => this.move()}>Move</button>
                 <button onClick={() => this.putBeeper()}>Put Beeper</button>
                 <button onClick={() => this.pickBeeper()}>Pick Beeper</button>
-                <br />
-                <br />
+                <br/>
+                <br/>
             </div>
         );
     }

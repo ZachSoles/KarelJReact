@@ -3,7 +3,6 @@ class Robot {
     y: number
     position: Direction
     on: Boolean
-    // beeperBag: beeper[]
     beeperBag: number
 
     constructor(x: number, y: number, beeperBag: number) {
@@ -51,12 +50,6 @@ class Robot {
             }
         }
     }
-
-    // setX(x: number) { this.x = x }
-
-    // setY(y: number) { this.y = y }
-
-    // setPosition(position: String) { this.position = position }
 
     turnLeft() {
         if (this.position === Direction.north) {
