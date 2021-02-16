@@ -57,42 +57,97 @@ class Map extends React.Component <any, any>{
     }
 
     drawGrid() {
-        var grid = []
+        var grid: any[] = []
+        var heightArr: number[] = []
+        var widthArr: number[] = []
 
-        for (var y = 0; y < this.state.height; y++) {
-            for (var x = 0; x < this.state.width; x++) {
+        for(var i = 0; i < this.state.height; i++) {
+            heightArr[i] = i
+        }
+        for(var i = 0; i < this.state.width; i++) {
+            widthArr[i] = i
+        }
+
+        // var heightArr = [0,1,2,3,4,5,6,7,8,9]
+        // var widthArr = [0,1,2,3,4,5,6,7,8,9]
+
+        heightArr.forEach(x => {
+            widthArr.forEach(y => {
                 var flag = true
                 if (y === this.state.karel.y && x === this.state.karel.x) {
-                    var newX = x
-                    var newY = y
-                    // grid.push("🥩")
-                    grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(x, y, gridType.karel)}} variant="outlined"><span className='textStyle'>{gridType.karel}</span></Button>)
-                    continue
+                    grid.push(
+                        <Button
+                            className='buttonStyle'
+                            onClick={() => {this.handleButtonKarel(x, y, gridType.karel)}}
+                            variant="outlined">
+                                <span className='textStyle'>{gridType.karel}</span>
+                        </Button>
+                    )
                 }
-                for (var i = 0; i < this.state.walls.length; i++){
-                    if (y === this.state.walls[i].y && x === this.state.walls[i].x) {
-                        var newX = this.state.walls[i].x
-                        var newY = this.state.walls[i].y
-                        grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(newX, newY, gridType.wall)}} variant="outlined"><span className='textStyle'>{gridType.wall}</span></Button>)
-                        flag = false
+                else {
+                    for (var i = 0; i < this.state.walls.length; i++){
+                        if (y === this.state.walls[i].y && x === this.state.walls[i].x) {
+                            grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(x, y, gridType.wall)}} variant="outlined"><span className='textStyle'>{gridType.wall}</span></Button>)
+                            flag = false
+                        }
+                    }
+                    for (var i = 0; i < this.state.beeperBag.length; i++){
+                        if (y === this.state.beeperBag[i].y && x === this.state.beeperBag[i].x) {
+                            grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(x, y, gridType.beeper)}} variant="outlined"><span className='textStyle'>{gridType.beeper}</span></Button>)
+                            flag = false
+                        }
+                    }
+                    if (flag)  {
+                        var newX = x
+                        var newY = y
+                        grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(x, y, gridType.empty)}} variant="outlined"><span className='textStyle'>{gridType.empty}</span></Button>)
                     }
                 }
-                for (var i = 0; i < this.state.beeperBag.length; i++){
-                    if (y === this.state.beeperBag[i].y && x === this.state.beeperBag[i].x) {
-                        var newX = this.state.beeperBag[i].x
-                        var newY = this.state.beeperBag[i].y
-                        grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(newX, newY, gridType.beeper)}} variant="outlined"><span className='textStyle'>{gridType.beeper}</span></Button>)
-                        flag = false
-                    }
-                }
-                if (flag)  {
-                    var newX = x
-                    var newY = y
-                    grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(x, y, gridType.empty)}} variant="outlined"><span className='textStyle'>{gridType.empty}</span></Button>)
-                }
-            }
+            })
             grid.push(<br/>)
-        }
+        })
+
+        // for (var y = 0; y < this.state.height; y++) {
+        //     for (var x = 0; x < this.state.width; x++) {
+        //         var flag = true
+        //         if (y === this.state.karel.y && x === this.state.karel.x) {
+        //             var newX = x
+        //             var newY = y
+        //             // grid.push("🥩")
+        //             grid.push(
+        //                 <Button
+        //                     className='buttonStyle'
+        //                     // onClick={() => {this.handleButtonKarel(x, y, gridType.karel)}}
+        //                     variant="outlined">
+        //                         <span className='textStyle'>{gridType.karel}</span>
+        //                 </Button>
+        //             )
+        //             continue
+        //         }
+        //         for (var i = 0; i < this.state.walls.length; i++){
+        //             if (y === this.state.walls[i].y && x === this.state.walls[i].x) {
+        //                 var newX = this.state.walls[i].x
+        //                 var newY = this.state.walls[i].y
+        //                 grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(newX, newY, gridType.wall)}} variant="outlined"><span className='textStyle'>{gridType.wall}</span></Button>)
+        //                 flag = false
+        //             }
+        //         }
+        //         for (var i = 0; i < this.state.beeperBag.length; i++){
+        //             if (y === this.state.beeperBag[i].y && x === this.state.beeperBag[i].x) {
+        //                 var newX = this.state.beeperBag[i].x
+        //                 var newY = this.state.beeperBag[i].y
+        //                 grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(newX, newY, gridType.beeper)}} variant="outlined"><span className='textStyle'>{gridType.beeper}</span></Button>)
+        //                 flag = false
+        //             }
+        //         }
+        //         if (flag)  {
+        //             var newX = x
+        //             var newY = y
+        //             grid.push(<Button className='buttonStyle' onClick={() => {this.handleButtonKarel(x, y, gridType.empty)}} variant="outlined"><span className='textStyle'>{gridType.empty}</span></Button>)
+        //         }
+        //     }
+        //     grid.push(<br/>)
+        // }
         return grid
     }
 
