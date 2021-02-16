@@ -1,14 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Karel from './Karel';
-import Map from './Map';
+import Simulator from './Components/Simulator';
+import Editor from './Components/Editor/Editor';
 
 function App() {
   return (
     <div className="App">
-      <Map/>
-      {/* <Karel/> */}
+      <Editor/>
+      {/* <Simulator/> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

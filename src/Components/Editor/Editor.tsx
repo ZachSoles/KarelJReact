@@ -1,7 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import React from 'react';
-import { Robot, Beeper, Wall } from './Robot';
-import './Map.css';
+import { Robot, Beeper, Wall } from '../Shared/Robot';
+import './Editor.css';
 
 enum gridType {
     karel = "🥩",
@@ -10,7 +10,7 @@ enum gridType {
     empty = "⬜️"
 }
 
-class Map extends React.Component <any, any>{
+class Editor extends React.Component <any, any>{
     state = {
         karels : [new Robot(1, 1, 0)],
         beeperBag: [new Beeper(6, 6)],
@@ -177,4 +177,4 @@ class Map extends React.Component <any, any>{
     }
 }
 
-export default Map;
+export default Editor;

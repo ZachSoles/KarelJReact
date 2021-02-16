@@ -1,7 +1,7 @@
 import React from 'react';
-import { Robot, Beeper, Wall } from './Robot';
+import { Robot, Beeper, Wall } from './Shared/Robot';
 
-class Karel extends React.Component <any, any>{
+class Simulator extends React.Component <any, any>{
     state = {
         karel : new Robot(5, 5, 3),
         beeperBag: [new Beeper(15, 15)],
@@ -86,4 +86,4 @@ class Karel extends React.Component <any, any>{
     }
 }
 
-export default Karel;
+export default Simulator;
